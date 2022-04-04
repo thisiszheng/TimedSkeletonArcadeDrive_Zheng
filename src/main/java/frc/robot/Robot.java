@@ -60,10 +60,10 @@ public class Robot extends TimedRobot {
     double left = speed + turn;
     double right = speed - turn;
 
-    leftMotorFront.set(left);
-    leftMotorBack.set(left);
-    rightMotorFront.set(-right);
-    rightMotorBack.set(-right);
+    leftMotorFront.set(-left);
+    leftMotorBack.set(-left);
+    rightMotorFront.set(right);
+    rightMotorBack.set(right);
 
     if(joy1.getRawButton(2))
       gearbox.set(Value.kForward);
