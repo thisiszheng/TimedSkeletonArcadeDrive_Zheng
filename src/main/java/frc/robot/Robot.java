@@ -4,8 +4,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsControlModule;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 
 /**
@@ -27,8 +30,13 @@ public class Robot extends TimedRobot {
 
   private Joystick joy1 = new Joystick(0);
 
+  private PneumaticsControlModule pcm = new PneumaticsControlModule(1);
+  private DoubleSolenoid ds = pcm.makeDoubleSolenoid(0, 7);
+
   @Override
-  public void robotInit() {}
+  public void robotInit() {
+    pcm.enableCompressorDigital();
+  }
 
   @Override
   public void robotPeriodic() {}
@@ -47,13 +55,18 @@ public class Robot extends TimedRobot {
     double speed = -joy1.getRawAxis(1) * 0.6;
     double turn = joy1.getRawAxis(2) * 0.3;
 
+    if(joy1.getRawButton(2)){
+      ds.set(Value.kForward);
+    }else if(joy1.getRawButton(3))
+      ds.set(Value.kReverse);
+
     double left = speed + turn;
     double right = speed - turn;
 
-    leftMotorFront.set(left);
-    leftMotorBack.set(left);
-    rightMotorFront.set(-right * 0.91);
-    rightMotorBack.set(-right * 0.91);
+    leftMotorFront.set(-left);
+    leftMotorBack.set(-left);
+    rightMotorFront.set(right * 0.91);
+    rightMotorBack.set(right * 0.91);
   }
 
   @Override
