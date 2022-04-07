@@ -69,8 +69,8 @@ public class Robot extends TimedRobot {
 
     leftMotorFront.set(-left * Percentage);
     leftMotorBack.set(-left * Percentage);
-    rightMotorFront.set(right * Percentage);
-    rightMotorBack.set(right * Percentage);
+    rightMotorFront.set(right);
+    rightMotorBack.set(right);
   }
 
   @Override
