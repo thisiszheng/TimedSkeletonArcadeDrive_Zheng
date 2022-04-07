@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsControlModule;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 
@@ -33,6 +34,8 @@ public class Robot extends TimedRobot {
   private PneumaticsControlModule pcm = new PneumaticsControlModule(1);
   private DoubleSolenoid ds = pcm.makeDoubleSolenoid(0, 7);
 
+  private double startTime;
+
   @Override
   public void robotInit() {
     pcm.enableCompressorDigital();
@@ -43,10 +46,25 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {}
 
   @Override
-  public void autonomousInit() {}
+  public void autonomousInit() {
+    startTime = Timer.getFPGATimestamp();
+  }
 
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    double time = Timer.getFPGATimestamp();
+
+    if (time - startTime < 3);
+      leftMotorFront.set(-0.6);
+      leftMotorBack.set(-0.6);
+      rightMotorFront.set(0.6);
+      rightMotorBack.set(0.6);
+    } {
+      leftMotorFront.set(0);
+      leftMotorBack.set(0);
+      rightMotorFront.set(0);
+      rightMotorBack.set(0);
+    }
 
   @Override
   public void teleopInit() {}
