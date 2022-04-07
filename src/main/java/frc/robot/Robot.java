@@ -22,7 +22,7 @@ public class Robot extends TimedRobot {
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
-
+  double Percentage = 0.0; 
   private Spark leftMotorFront = new Spark(3);
   private Spark leftMotorBack = new Spark(4);
   private Spark rightMotorFront = new Spark(1);
@@ -36,6 +36,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     pcm.enableCompressorDigital();
+    Percentage = 0.91;
   }
 
   @Override
@@ -52,21 +53,24 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    double speed = -joy1.getRawAxis(1) * 0.6;
-    double turn = joy1.getRawAxis(2) * 0.3;
+    double speed = -joy1.getRawAxis(1) * 0.9;
+    double turn = joy1.getRawAxis(2) * 0.9;
 
     if(joy1.getRawButton(2)){
       ds.set(Value.kForward);
-    }else if(joy1.getRawButton(3))
+      double Percentage = 0.91;
+    }else if(joy1.getRawButton(3)){
       ds.set(Value.kReverse);
+      double Percentage = 0.8;
+    }
 
     double left = speed + turn;
     double right = speed - turn;
 
-    leftMotorFront.set(-left);
-    leftMotorBack.set(-left);
-    rightMotorFront.set(right * 0.91);
-    rightMotorBack.set(right * 0.91);
+    leftMotorFront.set(-left * Percentage );
+    leftMotorBack.set(-left * Percentage);
+    rightMotorFront.set(right);
+    rightMotorBack.set(right);
   }
 
   @Override
