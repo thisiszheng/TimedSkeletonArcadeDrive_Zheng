@@ -58,10 +58,10 @@ public class Robot extends TimedRobot {
 
     if(joy1.getRawButton(2)){
       ds.set(Value.kForward);
-      double Percentage = 0.91;
+      Percentage = 0.91;
     }else if(joy1.getRawButton(3)){
       ds.set(Value.kReverse);
-      double Percentage = 1;
+      Percentage = 1;
     }
 
     double left = speed + turn;
